@@ -14,7 +14,7 @@ func TestCompleteResponseHasCodeThenSpaceAndNewLine(t *testing.T) {
 	checkIncompleteResponse(t, "98 \r\n")
 }
 
-func TestCompleteMultiLineresponseEndsWithStartCode(t *testing.T) {
+func TestCompleteMultiLineResponseEndsWithStartCode(t *testing.T) {
 	checkCompleteResponse(t, "123-some text\r\n123 \r\n")
 	checkCompleteResponse(t, "123-\r\nline2\r\n123no space\r\n123 \r\n")
 	checkCompleteResponse(t, "123-some text\r\nnext line\r\n123 \r\n")
