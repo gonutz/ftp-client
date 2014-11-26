@@ -87,6 +87,19 @@ func ConnectLogging(host string, port uint16, logger Logger) (*Connection, error
 	return newConnection(conn, logger)
 }
 
+// ConnectOn uses the given connection as an FTP control connection. This can be
+// used for setting connection parameters like time-outs.
+func ConnectOn(conn net.Conn) (*Connection, error) {
+	return newConnection(conn, nil)
+}
+
+// ConnectLoggingOn uses the given connection as an FTP control connection. This
+// can be used for setting connection parameters like time-outs. It also sets
+// the logger.
+func ConnectLoggingOn(conn net.Conn, logger Logger) (*Connection, error) {
+	return newConnection(conn, logger)
+}
+
 type transferType string
 
 const (
