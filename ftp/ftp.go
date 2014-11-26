@@ -1,42 +1,5 @@
 package ftp
 
-// TODO commands in RFC 959
-// 'x' = done, '-' = not to be implemented
-// Connection Establishment x
-// USER x
-// PASS x
-// ACCT   TODO
-// CWD  x
-// CDUP x
-// SMNT x
-// REIN x
-// QUIT x
-// PORT -
-// PASV x
-// MODE -
-// TYPE x
-// STRU -
-// ALLO -
-// REST -
-// STOR x
-// STOU x
-// RETR x
-// LIST x
-// NLST x
-// APPE x
-// RNFR x
-// RNTO x
-// DELE x
-// RMD  x
-// MKD  x
-// PWD  x
-// ABOR x
-// SYST x
-// STAT x
-// HELP x
-// SITE   TODO
-// NOOP x
-
 import (
 	"bytes"
 	"errors"
@@ -495,13 +458,11 @@ func getPathFromResponse(resp []byte) (string, error) {
 	return string(matches[1]), nil
 }
 
-// TODO is it necessary to expose this to the user?
-func (c *Connection) SetASCIITransfer() error {
+func (c *Connection) setASCIITransfer() error {
 	return c.setTransferTypeTo(transferASCII, "A")
 }
 
-// TODO is it necessary to expose this to the user?
-func (c *Connection) SetBinaryTransfer() error {
+func (c *Connection) setBinaryTransfer() error {
 	return c.setTransferTypeTo(transferBinary, "I")
 }
 
@@ -561,7 +522,7 @@ func parseNLST(data string) []string {
 }
 
 func (c *Connection) readListCommandData(cmd, path string) (string, error) {
-	err := c.SetASCIITransfer()
+	err := c.setASCIITransfer()
 	if err != nil {
 		return "", err
 	}
@@ -627,7 +588,7 @@ func getAddressOfPasvResponse(msg []byte) (string, error) {
 // It reads the file as binary data from the FTP server in passive mode.
 // The FTP command this sends is RETR.
 func (c *Connection) Download(path string, dest io.Writer) error {
-	err := c.SetBinaryTransfer()
+	err := c.setBinaryTransfer()
 	if err != nil {
 		return err
 	}
@@ -696,7 +657,7 @@ func (c *Connection) Append(source io.Reader, path string) error {
 }
 
 func (c *Connection) upload(cmd, path string, source io.Reader) error {
-	err := c.SetBinaryTransfer()
+	err := c.setBinaryTransfer()
 	if err != nil {
 		return err
 	}

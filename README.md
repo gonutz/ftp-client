@@ -18,12 +18,14 @@ import (
 func main() {
 	conn, err := ftp.Connect("some.ftp.host", 21)
 	if err != nil {
+		fmt.Println("unable to connect, error:", err)
 		return
 	}
 	defer conn.Close()
 
 	err = conn.Login("user", "password")
 	if err != nil {
+		fmt.Println("login failed, error:", err)
 		return
 	}
 	defer conn.Quit()
@@ -31,7 +33,7 @@ func main() {
 	source := bytes.NewBuffer([]byte("This is the file content."))
 	err = conn.Upload(source, "/example_upload.txt")
 	if err != nil {
-		fmt.Errorf("unable to upload file, error: %v", err)
+		fmt.Println("unable to upload file, error:", err)
 	}
 }
 ```
