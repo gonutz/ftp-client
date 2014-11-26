@@ -22,7 +22,7 @@ const (
 	fileActionPending                            = "350"
 )
 
-func (c responseCode) success() bool {
+func (c responseCode) ok() bool {
 	if len(c) != 3 {
 		return false
 	}

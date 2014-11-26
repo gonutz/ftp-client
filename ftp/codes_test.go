@@ -11,13 +11,13 @@ func TestCodeOfLength3StartingWith1or2isSuccess(t *testing.T) {
 }
 
 func checkSuccess(t *testing.T, code string) {
-	if !responseCode(code).success() {
+	if !responseCode(code).ok() {
 		t.Errorf("%v expected success but was not", code)
 	}
 }
 
 func checkNotSuccess(t *testing.T, code string) {
-	if responseCode(code).success() {
+	if responseCode(code).ok() {
 		t.Errorf("%v expected no success but was success", code)
 	}
 }
