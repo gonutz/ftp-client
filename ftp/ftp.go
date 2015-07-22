@@ -1,3 +1,6 @@
+/*
+Package ftp implements the FTP client protocol as specified in RFC 959.
+*/
 package ftp
 
 import (
@@ -162,12 +165,12 @@ func endsInNewLine(msg []byte) bool {
 	return msg[l-2] == '\r' && msg[l-1] == '\n'
 }
 
-func isMultiLineResponse(msg []byte) bool {
-	return len(msg) >= 4 && msg[3] == '-'
-}
-
 func isCompleteMultiLineResponse(msg []byte) bool {
 	return isMultiLineResponse(msg) && lastLineEndsInSameCodeAsFirstLine(msg)
+}
+
+func isMultiLineResponse(msg []byte) bool {
+	return len(msg) >= 4 && msg[3] == '-'
 }
 
 func lastLineEndsInSameCodeAsFirstLine(msg []byte) bool {
@@ -632,7 +635,7 @@ func (c *Connection) Download(path string, dest io.Writer) error {
 // Upload writes the contents of the given source to a file at the given path
 // on the server. If the file was there before, it is overwritten. Otherwise a
 // new file is created.
-// It file is written as binary in passive mode.
+// The file is written as binary in passive mode.
 // The FTP command this sends is STOR.
 func (c *Connection) Upload(source io.Reader, path string) error {
 	return c.upload("STOR", path, source)
