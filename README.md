@@ -3,6 +3,7 @@ FTP Client Library for Go
 
 This is a Go implementation of the FTP protocol (RFC 959). It implements only the client part of the specification and supports the most common actions, including binary file transfer to and from a server.
 The interface conforms to go conventions. For example the upload and download functions use io.Reader and io.Writer. This makes them flexible and easy to use with the rest of the Go standard library.
+See the [documentation](https://godoc.org/github.com/gonutz/ftp-client/ftp) for details.
 
 # Example
 
