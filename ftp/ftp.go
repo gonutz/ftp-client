@@ -440,6 +440,16 @@ func (c *Connection) Abort() error {
 	if code == noTransferInProgress || code == closingDataConnection {
 		return nil
 	}
+	if code == connectionClosed_TransferAborter {
+		resp, code, err = c.receive()
+		if err != nil {
+			return err
+		}
+		if code == closingDataConnection {
+			return nil
+		}
+		return errorMessage("ABOR", resp)
+	}
 	return errorMessage("ABOR", resp)
 }
 
